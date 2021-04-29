@@ -55,7 +55,7 @@ if ($result->num_rows > 0) {
 ?>
 
 
-        
+    <script type="text/javascript" src="Scripts/resetHome.js"></script>
     <script type="text/javascript">
             var timeArray = <?php echo json_encode($timeArr); ?>;
 			var stampArray = <?php echo json_encode($stampArr); ?>;
@@ -78,14 +78,85 @@ if ($result->num_rows > 0) {
 
     <body>
         <h2 id="historyHeading">History</h2>
-		
-	<div id="container"> 
-	
-	    <div class="boxes" id="calorieChart"></div>
-		<div class="boxes" id="distanceChart"></div> 
-		<div class "boxes" id="speedChart"></div>   
-        
-     </div>
+
+<style>
+#container_slideshow
+{
+	width: 90%;
+    height: 50px;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+    border-radius: 10px;
+    justify-content: center;
+}
+.boxes
+{
+  width: 50%;
+  margin: auto;
+ 
+}
+</style>
+	 <!-- Slideshow container -->
+<div class="container_slideshow" >
+  <div class="mySlides fade" id="slide">
+    <div class="boxes" id="calorieChart"></div>
+  </div>
+
+  <div class="mySlides fade" id="slide">
+   
+    <div class="boxes" id="distanceChart"></div> 
+  </div>
+  
+  <div class="mySlides fade" id="slide">
+
+    <div class="boxes" id="speedChart"></div> 
+  </div>
+  
+  <a class="prevSlide" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="nextSlide" onclick="plusSlides(1)">&#10095;</a>
+</div>
+
+<script>
+var slideIndex = 1;
+
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+}
+</script>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
 
 	<div class="runInfoBody">
             <div class="runInfoButtons">
@@ -101,6 +172,12 @@ if ($result->num_rows > 0) {
 
                 <input type="button" class="cycle" id="prev" value="Previous">
                 <input type="button" class="cycle" id="next" value="Next">
+				
+				<!--<form name="form" action="" method="post">	
+					<button type="submit" value="Submit">Submit</button>
+				</form>
+				-->
+			
                 </div>
             </div>
 
